@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.lemekh.webapp.model.UserInformation;
 import ua.lemekh.webapp.model.VerificationToken;
 
 import java.util.HashSet;

@@ -47,6 +47,7 @@
         <h2>Welcome ${pageContext.request.userPrincipal.name} </h2> <br>  <a onclick="document.forms['logoutForm'].submit()">Logout</a>
 
         <h1>${user.email}</h1>
+        <p><a href="${contextPath}/addInformation">Add information</a> </p>
         <br>
 
 

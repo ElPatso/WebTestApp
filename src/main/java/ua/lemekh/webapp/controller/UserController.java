@@ -4,7 +4,9 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.lemekh.webapp.mailEvent.OnRegistrationCompleteEvent;
 import ua.lemekh.webapp.model.User;
+import ua.lemekh.webapp.model.UserInformation;
 import ua.lemekh.webapp.model.VerificationToken;
+import ua.lemekh.webapp.service.UserInformationService;
 import ua.lemekh.webapp.service.UserService;
 import ua.lemekh.webapp.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
+   @Autowired
+   private UserInformationService userInformationService;
 
     @Autowired
     private UserValidator userValidator;
@@ -40,15 +43,28 @@ public class UserController {
         return "registration";
     }
 
+    @RequestMapping(value = "addInformation", method = RequestMethod.GET)
+    public String showAdd(Model model){
+        model.addAttribute("UserInformation", new UserInformation());
+        return "addInformation";
+    }
+
+    @RequestMapping(value = "addInformation", method = RequestMethod.POST)
+    public String addInformation(@ModelAttribute("UserInformation")UserInformation userInformation, Model model){
+        userInformation.setId(userService.getCurrentUser().getId());
+        userInformationService.addInformation(userInformation);
+        return "redirect:/addInformation";
+    }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model, HttpServletRequest  request) {
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model, HttpServletRequest request) {
+        UserInformation userInformation = new UserInformation();
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-
+        userForm.setUserInformation(userInformation);
         userService.save(userForm);
 
         applicationEventPublisher.publishEvent(new OnRegistrationCompleteEvent(userForm, request.getLocale(), getAppUrl(request)));
