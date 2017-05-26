@@ -1,6 +1,0 @@
-*.properties
-*.sql
-.idea
-target/
-resources/
-.gitignore
