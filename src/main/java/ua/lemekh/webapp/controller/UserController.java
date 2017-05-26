@@ -67,7 +67,7 @@ public class UserController {
         userForm.setUserInformation(userInformation);
         userService.save(userForm);
 
-        applicationEventPublisher.publishEvent(new OnRegistrationCompleteEvent(userForm, request.getLocale(), getAppUrl(request)));
+      //  applicationEventPublisher.publishEvent(new OnRegistrationCompleteEvent(userForm, request.getLocale(), getAppUrl(request)));
 
         //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
@@ -94,10 +94,7 @@ public class UserController {
         return "welcome";
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String admin(Model model) {
-        return "admin";
-    }
+
 
 
 

@@ -60,7 +60,7 @@
             </div>
         </spring:bind>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="alert('Підтвердіть мило!')">Submit</button>
     </form:form>
 
 </div>

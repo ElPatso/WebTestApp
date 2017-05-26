@@ -20,7 +20,7 @@
     <form:input path="surname"/>
     <form:input path="city"/>
     <form:input path="age"/>
-    <input type="submit" value="Bla"/>
+    <button type="submit" value="Bla"/>
 </form:form>
 </body>
 </html>

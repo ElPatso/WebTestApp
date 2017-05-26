@@ -20,6 +20,9 @@ public class User {
     @Column(name = "enabled")
     private boolean enabled;
 
+    @Column(name ="email")
+    private String email;
+
     public boolean isEnabled() {
         return enabled;
     }
@@ -44,13 +47,10 @@ public class User {
         this.userInformation = userInformation;
     }
 
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userinfo_id")
     private UserInformation userInformation;
-
-
-    @Column(name ="email")
-    private String email;
 
     public String getEmail() {
         return email;

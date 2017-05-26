@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http auto-config="true">
-        <intercept-url pattern="/" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN','ROLE_ANONYMOUS')"/>
+        <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/welcome" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN','ROLE_ANONYMOUS')"/>
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
 
@@ -17,7 +17,7 @@
 
         <logout logout-success-url="/welcome?logout"/>
     </http>
-
+<global-method-security pre-post-annotations="enabled" />
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userDetailsServiceImpl">
             <password-encoder ref="encoder"></password-encoder>

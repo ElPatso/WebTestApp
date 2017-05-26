@@ -1,6 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -44,14 +44,17 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
 
+       
         <h2>Welcome ${pageContext.request.userPrincipal.name} </h2> <br>  <a onclick="document.forms['logoutForm'].submit()">Logout</a>
-
-        <h1>${user.email}</h1>
+        <security:authorize access="hasRole('ROLE_ADMIN')">
+            <a href="${contextPath}/admin">Admin</a>
+        </security:authorize>
+        <h1>${user.password}</h1>
         <p><a href="${contextPath}/addInformation">Add information</a> </p>
         <br>
-
-
     </c:if>
+
+
 
 </div>
 <div class="layer2">

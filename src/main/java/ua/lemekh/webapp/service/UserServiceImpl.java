@@ -16,6 +16,7 @@ import ua.lemekh.webapp.model.UserInformation;
 import ua.lemekh.webapp.model.VerificationToken;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -48,6 +49,12 @@ public class UserServiceImpl implements UserService {
     public void saveVerificationUser(User user){
         userDao.save(user);
     }
+    @Transactional
+    @Override
+    public List<User> findAll() {
+        return userDao.findAll();
+    }
+
     @Override
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
@@ -87,5 +94,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public VerificationToken getVerificationToken(String verificationToken) {
         return tokenRepository.findByToken(verificationToken);
+    }
+    @Transactional
+    @Override
+    public void deleteByUsername(String name) {
+        userDao.deleteByUsername(name);
     }
 }
