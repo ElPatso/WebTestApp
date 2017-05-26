@@ -3,6 +3,6 @@
 target/*
 # folder
 resources/
-/.war
-/.ear
-/.jar
+
+*.properties
+*.sql
