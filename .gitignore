@@ -1,8 +1,5 @@
-.idea/*
-*.class
-target/*
-# folder
-resources/
-
 *.properties
 *.sql
+.idea
+target/
+resources/
