@@ -1,5 +1,8 @@
 package ua.lemekh.webapp.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import ua.lemekh.webapp.dao.RoleDao;
 import ua.lemekh.webapp.dao.UserDao;
 import ua.lemekh.webapp.dao.VerificationTokenRepository;
@@ -52,7 +55,15 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public List<User> findAll() {
-        return userDao.findAll();
+
+        return  userDao.findAll();
+    }
+
+    @Override
+    public Page<User> getUsers(Integer pageNumber) {
+        PageRequest request =
+                new PageRequest(pageNumber - 1, 5);
+        return userDao.findAll(request);
     }
 
     @Override
@@ -95,6 +106,7 @@ public class UserServiceImpl implements UserService {
     public VerificationToken getVerificationToken(String verificationToken) {
         return tokenRepository.findByToken(verificationToken);
     }
+
     @Transactional
     @Override
     public void deleteByUsername(String name) {

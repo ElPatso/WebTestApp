@@ -26,7 +26,7 @@
         <h2>Адмін тут Я - ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
         </h2>
 
-        <a href="${contextPath}/userslist">List</a>
+        <a href="${contextPath}/userslist/1">List</a>
     </c:if>
 </div>
 

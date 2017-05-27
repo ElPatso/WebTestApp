@@ -1,6 +1,7 @@
 package ua.lemekh.webapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -23,17 +24,45 @@ public class AdminController {
     public String admin(Model model) {
         return "admin";
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "userslist", method = RequestMethod.GET)
     public String showUsers(Model model){
-        model.addAttribute("user", new User());
-        model.addAttribute("userslist", userService.findAll());
+        Page<User> page = userService.getUsers(1);
+
+        int current = page.getNumber() + 1;
+        int begin = Math.max(1, current - 5);
+        int end = Math.min(begin + 10, page.getTotalPages());
+
+        model.addAttribute("userslist", page.getContent());
+        model.addAttribute("deploymentLog", page);
+        model.addAttribute("beginIndex", begin);
+        model.addAttribute("endIndex", end);
+        model.addAttribute("currentIndex", current);
         return "userslist";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/remove/{username}")
     public String removeUser(@PathVariable("username") String username){
         userService.deleteByUsername(username);
         return "redirect:/userslist";
+    }
+
+    @RequestMapping(value = "/userslist/{pageNumber}", method = RequestMethod.GET)
+    public String getRunbookPage(@PathVariable Integer pageNumber, Model model) {
+        Page<User> page = userService.getUsers(pageNumber);
+
+        int current = page.getNumber() + 1;
+        int begin = Math.max(1, current - 5);
+        int end = Math.min(begin + 10, page.getTotalPages());
+
+        model.addAttribute("userslist", page.getContent());
+        model.addAttribute("deploymentLog", page);
+        model.addAttribute("beginIndex", begin);
+        model.addAttribute("endIndex", end);
+        model.addAttribute("currentIndex", current);
+
+        return "userslist";
     }
 }

@@ -1,5 +1,6 @@
 package ua.lemekh.webapp.service;
 
+import org.springframework.data.domain.Page;
 import ua.lemekh.webapp.model.User;
 import ua.lemekh.webapp.model.VerificationToken;
 
@@ -10,6 +11,8 @@ public interface UserService {
     void saveVerificationUser(User use);
 
     List<User> findAll();
+
+    Page<User> getUsers(Integer pageNumber);
 
     void save(User user);
 
