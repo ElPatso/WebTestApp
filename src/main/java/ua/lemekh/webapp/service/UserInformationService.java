@@ -10,7 +10,4 @@ import java.util.List;
 public interface UserInformationService {
     public void addInformation(UserInformation userInformation);
 
-    List<UserInformation> userInformation();
-
-    UserInformation findById(long id);
 }

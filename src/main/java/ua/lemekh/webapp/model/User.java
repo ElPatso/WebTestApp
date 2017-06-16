@@ -1,5 +1,7 @@
 package ua.lemekh.webapp.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -103,4 +105,16 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+
+    public MultipartFile getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(MultipartFile userImage) {
+        this.userImage = userImage;
+    }
+
+    @Transient
+    private MultipartFile userImage;
 }

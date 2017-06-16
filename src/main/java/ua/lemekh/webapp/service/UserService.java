@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserService {
     void saveVerificationUser(User use);
 
-    List<User> findAll();
+
 
     Page<User> getUsers(Integer pageNumber);
 
@@ -21,8 +21,6 @@ public interface UserService {
     User findByEmail(String email);
 
     User getCurrentUser();
-
-    User getUser(String verificationToken);
 
     void createVerificationToken(User user, String token);
 

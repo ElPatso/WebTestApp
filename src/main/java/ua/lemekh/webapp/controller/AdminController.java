@@ -48,7 +48,7 @@ public class AdminController {
         userService.deleteByUsername(username);
         return "redirect:/userslist";
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/userslist/{pageNumber}", method = RequestMethod.GET)
     public String getRunbookPage(@PathVariable Integer pageNumber, Model model) {
         Page<User> page = userService.getUsers(pageNumber);

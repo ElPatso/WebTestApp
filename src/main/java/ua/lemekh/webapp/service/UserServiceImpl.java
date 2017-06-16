@@ -1,13 +1,12 @@
 package ua.lemekh.webapp.service;
 
+import org.hibernate.jpa.internal.EntityManagerImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import ua.lemekh.webapp.dao.RoleDao;
 import ua.lemekh.webapp.dao.UserDao;
 import ua.lemekh.webapp.dao.VerificationTokenRepository;
-import ua.lemekh.webapp.model.Role;
-import ua.lemekh.webapp.model.User;
+import ua.lemekh.webapp.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,9 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.lemekh.webapp.model.UserInformation;
-import ua.lemekh.webapp.model.VerificationToken;
 
+import javax.persistence.EntityManager;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,21 +46,16 @@ public class UserServiceImpl implements UserService {
         userDao.save(user);
 
     }
+
     @Transactional
     public void saveVerificationUser(User user){
         userDao.save(user);
-    }
-    @Transactional
-    @Override
-    public List<User> findAll() {
-
-        return  userDao.findAll();
     }
 
     @Override
     public Page<User> getUsers(Integer pageNumber) {
         PageRequest request =
-                new PageRequest(pageNumber - 1, 5);
+                new PageRequest(pageNumber - 1, 1);
         return userDao.findAll(request);
     }
 
@@ -90,11 +83,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
-    public User getUser(String verificationToken) {
-        User user = tokenRepository.findByToken(verificationToken).getUser();
-        return user;
-    }
 
     @Override
     public void createVerificationToken(User user, String token) {

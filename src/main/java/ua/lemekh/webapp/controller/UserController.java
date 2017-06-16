@@ -37,8 +37,9 @@ public class UserController {
     ApplicationEventPublisher applicationEventPublisher;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model) {
+    public String registration(Model model, HttpServletRequest request) {
         model.addAttribute("userForm", new User());
+        model.addAttribute("url", request.getServerName());
 
         return "registration";
     }
@@ -54,6 +55,7 @@ public class UserController {
         userInformation.setId(userService.getCurrentUser().getId());
         userInformationService.addInformation(userInformation);
         return "redirect:/addInformation";
+
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -69,7 +71,7 @@ public class UserController {
 
       //  applicationEventPublisher.publishEvent(new OnRegistrationCompleteEvent(userForm, request.getLocale(), getAppUrl(request)));
 
-        //securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
+      //  securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
         return "redirect:/welcome";
     }
@@ -91,7 +93,9 @@ public class UserController {
     public String welcome(Model model) {
 
         model.addAttribute("user", userService.getCurrentUser());
+
         return "welcome";
+
     }
 
 

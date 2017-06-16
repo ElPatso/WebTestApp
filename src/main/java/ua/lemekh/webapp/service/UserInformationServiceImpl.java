@@ -21,13 +21,4 @@ public class UserInformationServiceImpl implements UserInformationService {
         userInformationDao.addInformation(userInformation);
     }
 
-    @Override
-    public List<UserInformation> userInformation() {
-        return null;
-    }
-    @Transactional
-    @Override
-    public UserInformation findById(long id) {
-        return userInformationDao.findById(id);
-    }
 }
